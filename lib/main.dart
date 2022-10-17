@@ -44,13 +44,61 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
     // than having to individually change instances of widgets.
     return Scaffold(
         drawer: Drawer(
-          backgroundColor: const Color(0xff974141),
+          backgroundColor: const Color(0xff6d2f2f),
           child: ListView(
           padding: const EdgeInsets.only(top: 40, left: 12),
-          children: const [],
+          children: const [ListTile(
+            title: Text(
+              "Sobre o Museu",
+              style: TextStyle(fontSize: 20),
+            ),
+            textColor: Colors.white,
+          ),
+            ListTile(
+              title: Text(
+                "Exposições",
+                style: TextStyle(fontSize: 20),
+                selectionColor: Color(0xff974141),
+              ),
+              textColor: Colors.white,
+            ),
+            ListTile(
+              title: Text(
+                "Serviços",
+                style: TextStyle(fontSize: 20),
+                selectionColor: Color(0xff974141),
+              ),
+              textColor: Colors.white,
+            ),
+            ListTile(
+              title: Text(
+                "Idiomas",
+                style: TextStyle(fontSize: 20),
+                selectionColor: Color(0xff974141),
+              ),
+              textColor: Colors.white,
+
+            ),
+            ListTile(
+              title: Text(
+                "Ajuda",
+                style: TextStyle(fontSize: 20),
+                selectionColor: Color(0xff974141),
+              ),
+              textColor: Colors.white,
+            ),
+            ListTile(
+              title: Text(
+                "Sobre",
+                style: TextStyle(fontSize: 20),
+                selectionColor: Color(0xff974141),
+              ),
+              textColor: Colors.white,
+            ),],
           ),
         ),
       appBar: AppBar(
+        backgroundColor: const Color(0xff974141),
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: const Text('MUSEAR'),
