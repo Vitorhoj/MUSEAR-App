@@ -140,7 +140,7 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
               ),
             ),
             CarouselSlider(
-              options: CarouselOptions(height: 160.0),
+              options: CarouselOptions(height: 180.0),
               items: [1, 2, 3, 4].map((i) {
                 return Builder(
                   builder: (BuildContext context) {
