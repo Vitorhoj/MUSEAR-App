@@ -43,7 +43,7 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-      backgroundColor: Color(0xfff8e2e2),
+      backgroundColor: const Color(0xfff8e2e2),
         drawer: Drawer(
           backgroundColor: const Color(0xff6d2f2f),
           child: ListView(
@@ -123,9 +123,28 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
           // axis because Columns are vertical (the cross axis would be
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[],
+          children: const [],
         ),
     ),
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: const Color(0xff842e2e),
+        unselectedItemColor: Colors.white,
+        selectedLabelStyle: const TextStyle(fontSize: 14),
+        unselectedLabelStyle: const TextStyle(fontSize: 14),
+        currentIndex: 0,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home, color: Colors.white,size: 24,),
+            label: "Início",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.photo_camera,  color: Colors.white,size: 24,),
+            label: "Câmera",
+          ),
+          BottomNavigationBarItem(icon: Icon(Icons.schedule, color: Colors.white, size: 24,),
+            label: "Agendamento",),
+        ],
+      ),
     );// This trailing comma makes auto-formatting nicer for build methods.;
   }
 }
