@@ -43,6 +43,7 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
+      backgroundColor: Color(0xfff8e2e2),
         drawer: Drawer(
           backgroundColor: const Color(0xff6d2f2f),
           child: ListView(
