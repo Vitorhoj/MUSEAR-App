@@ -106,43 +106,76 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
         title: const Text('MUSEAR'),
       ),
       body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              const Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "Notícias",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 22,),
-                  textAlign: TextAlign.start,),
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            const Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                "Notícias",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 22,
+                ),
+                textAlign: TextAlign.start,
               ),
-              CarouselSlider(
-                options: CarouselOptions(height: 160.0),
-                items: [1, 2, 3, 4].map((i) {
-                  return Builder
-                    (builder: (BuildContext context) {
+            ),
+            CarouselSlider(
+              options: CarouselOptions(height: 160.0),
+              items: [1, 2, 3, 4].map((i) {
+                return Builder(
+                  builder: (BuildContext context) {
                     return Container(
                       width: MediaQuery.of(context).size.width,
                       margin: const EdgeInsets.symmetric(horizontal: 3.0),
                       decoration: const BoxDecoration(color: Colors.amber),
-                      child:
-                      Text('text $i', style: const TextStyle(fontSize: 16.0),),
+                      child: Text(
+                        'text $i',
+                        style: const TextStyle(fontSize: 16.0),
+                      ),
                     );
                   },
-                  );
-                }).toList(),
-              ),
-              const Text(
+                );
+              }).toList(),
+            ),
+            const Text(
               """   Você pode visualizar mais informações sobre uma peça clicando no botão com o ícone de uma câmera na parte inferior da tela para abrir a câmera e realizar a leitura do QR Code correspondente à peça!
 Se tiver dificuldades para abrir a câmera e escanear o QR Code, você pode utilizar também a barra de pesquisa abaixo pesquisando pelo título ou pelo código ou pelo autor da peça!""",
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 18),
             ),
+            Row(
+              children: [
+                const Expanded(
+                  flex: 4,
+                  child: TextField(
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Título, código ou autor'),
+                    autofocus: false,
+                  ),
+                ),
+                const SizedBox(
+                  width: 8,
+                ),
+                Expanded(
+                  flex: 1,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: const Size(20, 58),
+                      elevation: 0,
+                      foregroundColor: Colors.white,
+                      backgroundColor: const Color(0xff974141),
+                    ),
+                    onPressed: () {},
+                    child: const Icon(Icons.search),
+                  ),
+                ),
+              ],
+            ),
           ],
-          ),
         ),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Colors.white,
         backgroundColor: const Color(0xff842e2e),
