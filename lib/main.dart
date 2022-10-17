@@ -224,3 +224,129 @@ Se tiver dificuldades para abrir a câmera e escanear o QR Code, você pode util
     );// This trailing comma makes auto-formatting nicer for build methods.;
   }
 }
+
+class SchedulingScreen extends StatelessWidget {
+  const SchedulingScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      drawer: Drawer(
+        backgroundColor: const Color(0xff974141),
+        child: ListView(
+          padding: const EdgeInsets.only(top: 40, left: 12),
+          children: [
+            ListTile(
+              title: const Text(
+                "Sobre o Museu",
+                style: TextStyle(fontSize: 20),
+              ),
+              textColor: Colors.white,
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: const Text(
+                "Exposições",
+                style: TextStyle(fontSize: 20),
+                selectionColor: Color(0xff974141),
+              ),
+              textColor: Colors.white,
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: const Text(
+                "Serviços",
+                style: TextStyle(fontSize: 20),
+                selectionColor: Color(0xff974141),
+              ),
+              textColor: Colors.white,
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: const Text(
+                "Idiomas",
+                style: TextStyle(fontSize: 20),
+                selectionColor: Color(0xff974141),
+              ),
+              textColor: Colors.white,
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: const Text(
+                "Ajuda",
+                style: TextStyle(fontSize: 20),
+                selectionColor: Color(0xff974141),
+              ),
+              textColor: Colors.white,
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: const Text(
+                "Sobre",
+                style: TextStyle(fontSize: 20),
+                selectionColor: Color(0xff974141),
+              ),
+              textColor: Colors.white,
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
+      ),
+      appBar: AppBar(
+        backgroundColor: const Color(0xff842e2e),
+        centerTitle: true,
+        title: const Text("MUSEAR"),
+        titleTextStyle: const TextStyle(fontSize: 35),
+      ),
+      body: Column(
+        children: const [
+          SizedBox(height: 12),
+          Text(
+            "Agendar Visitas",
+            style: TextStyle(
+              fontSize: 28,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          SizedBox(height: 12),
+          Text(
+            "  Em virtude da pandemia de covid-19, as visitas aos espaços expositivos do MUSEAR estão restritas ao público.",
+            style: TextStyle(fontSize: 18),
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: const Color(0xff842e2e),
+        unselectedItemColor: Colors.white,
+        selectedLabelStyle: const TextStyle(fontSize: 14),
+        unselectedLabelStyle: const TextStyle(fontSize: 14),
+        currentIndex: 0,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home, color: Colors.white,size: 24,),
+            label: "Início",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.photo_camera,  color: Colors.white,size: 24,),
+            label: "Câmera",
+          ),
+          BottomNavigationBarItem(icon: Icon(Icons.schedule, color: Colors.white, size: 24,),
+            label: "Agendamento",),
+        ],
+      ),
+    );
+  }
+}
