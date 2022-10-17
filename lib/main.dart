@@ -106,7 +106,7 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
         title: const Text('MUSEAR'),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
             const Align(
@@ -138,11 +138,17 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
                 );
               }).toList(),
             ),
+            const SizedBox(
+              height: 20,
+            ),
             const Text(
               """   Você pode visualizar mais informações sobre uma peça clicando no botão com o ícone de uma câmera na parte inferior da tela para abrir a câmera e realizar a leitura do QR Code correspondente à peça!
 Se tiver dificuldades para abrir a câmera e escanear o QR Code, você pode utilizar também a barra de pesquisa abaixo pesquisando pelo título ou pelo código ou pelo autor da peça!""",
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 18),
+            ),
+            const SizedBox(
+              height: 20,
             ),
             Row(
               children: [
