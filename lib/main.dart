@@ -49,55 +49,74 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
           backgroundColor: const Color(0xff6d2f2f),
           child: ListView(
           padding: const EdgeInsets.only(top: 40, left: 12),
-          children: const [ListTile(
-            title: Text(
-              "Sobre o Museu",
-              style: TextStyle(fontSize: 20),
-            ),
-            textColor: Colors.white,
-          ),
+            children: [
             ListTile(
-              title: Text(
+              title: const Text(
+                "Sobre o Museu",
+                style: TextStyle(fontSize: 20),
+              ),
+              textColor: Colors.white,
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: const Text(
                 "Exposições",
                 style: TextStyle(fontSize: 20),
                 selectionColor: Color(0xff974141),
               ),
               textColor: Colors.white,
+              onTap: () {
+                Navigator.pop(context);
+              },
             ),
             ListTile(
-              title: Text(
+              title: const Text(
                 "Serviços",
                 style: TextStyle(fontSize: 20),
                 selectionColor: Color(0xff974141),
               ),
               textColor: Colors.white,
+              onTap: () {
+                Navigator.pop(context);
+              },
             ),
             ListTile(
-              title: Text(
+              title: const Text(
                 "Idiomas",
                 style: TextStyle(fontSize: 20),
                 selectionColor: Color(0xff974141),
               ),
               textColor: Colors.white,
-
+              onTap: () {
+                Navigator.pop(context);
+              },
             ),
             ListTile(
-              title: Text(
+              title: const Text(
                 "Ajuda",
                 style: TextStyle(fontSize: 20),
                 selectionColor: Color(0xff974141),
               ),
               textColor: Colors.white,
+              onTap: () {
+                Navigator.pop(context);
+              },
             ),
             ListTile(
-              title: Text(
+              title: const Text(
                 "Sobre",
                 style: TextStyle(fontSize: 20),
                 selectionColor: Color(0xff974141),
               ),
               textColor: Colors.white,
-            ),],
-          ),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
         ),
       appBar: AppBar(
         backgroundColor: const Color(0xff974141),
