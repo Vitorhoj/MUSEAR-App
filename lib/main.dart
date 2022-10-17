@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -107,16 +108,32 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
       body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
-            children: const [Align(alignment: Alignment.centerLeft,
-            child: Text(
-              "Notícias",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 22,
-              ),textAlign: TextAlign.start,
-            ),
-            ),
-            ],
+            children: [
+              const Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "Notícias",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 22,),
+                  textAlign: TextAlign.start,),
+              ),
+              CarouselSlider(
+                options: CarouselOptions(height: 160.0),
+                items: [1, 2, 3, 4].map((i) {
+                  return Builder
+                    (builder: (BuildContext context) {
+                    return Container(
+                      width: MediaQuery.of(context).size.width,
+                      margin: const EdgeInsets.symmetric(horizontal: 3.0),
+                      decoration: const BoxDecoration(color: Colors.amber),
+                      child:
+                      Text('text $i', style: const TextStyle(fontSize: 16.0),),
+                    );
+                  },
+                  );
+                }).toList(),
+              ),],
           ),
         ),
       bottomNavigationBar: BottomNavigationBar(
