@@ -37,12 +37,19 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCo7unter method above.
+    // by the _incrementCounter method above.
     //
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
+        drawer: Drawer(
+          backgroundColor: const Color(0xff974141),
+          child: ListView(
+          padding: const EdgeInsets.only(top: 40, left: 12),
+          children: const [],
+          ),
+        ),
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
@@ -69,7 +76,7 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: const <Widget>[],
         ),
-      ),// This trailing comma makes auto-formatting nicer for build methods.
-    );
+    ),
+    );// This trailing comma makes auto-formatting nicer for build methods.;
   }
 }
