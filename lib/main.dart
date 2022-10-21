@@ -7,6 +7,7 @@ import 'package:musear/help_screen.dart';
 import 'package:musear/languages_screen.dart';
 import 'package:musear/scheduling_screen.dart';
 import 'package:musear/services_screen.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
 
 void main() {
@@ -45,6 +46,17 @@ class MyHomeScreen extends StatefulWidget {
 class _MyHomeScreenState extends State<MyHomeScreen> {
 
   final int _selectedIndex = 0;
+  String ticket = '';
+
+  readQRCode() async {
+    String code = await FlutterBarcodeScanner.scanBarcode(
+      "#FFFFFF",
+      "Cancelar",
+      false,
+      ScanMode.QR,
+    );
+    setState(() => ticket = code != '-1' ? code : 'Não validado');
+  }
 
   void _navigateTo(int index) {
     switch (index) {
@@ -53,8 +65,7 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
           context, MaterialPageRoute(builder: (_) => const MyHomeScreen()),);
       } break;
       case 1: {
-        Navigator.push(
-          context, MaterialPageRoute(builder: (_) => const ChangeLanguagesScreen()),);
+        readQRCode();
       } break;
       case 2: {
         Navigator.push(
