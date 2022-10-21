@@ -166,79 +166,82 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
-        child: Column(
-          children: [
-            const Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                "Notícias",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 22,
+        child: SingleChildScrollView(
+          reverse: true,
+          child: Column(
+            children: [
+              const Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "Notícias",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 22,
+                  ),
+                  textAlign: TextAlign.start,
                 ),
-                textAlign: TextAlign.start,
               ),
-            ),
-            CarouselSlider(
-              options: CarouselOptions(height: 180.0),
-              items: [1, 2, 3, 4].map((i) {
-                return Builder(
-                  builder: (BuildContext context) {
-                    return Container(
-                      width: MediaQuery.of(context).size.width,
-                      margin: const EdgeInsets.symmetric(horizontal: 3.0),
-                      decoration: const BoxDecoration(color: Colors.amber),
-                      child: Text(
-                        'text $i',
-                        style: const TextStyle(fontSize: 16.0),
-                      ),
-                    );
-                  },
-                );
-              }).toList(),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            const Text(
-              """   Você pode visualizar mais informações sobre uma peça clicando no botão com o ícone de uma câmera na parte inferior da tela para abrir a câmera e realizar a leitura do QR Code correspondente à peça!
+              CarouselSlider(
+                options: CarouselOptions(height: 180.0),
+                items: [1, 2, 3, 4].map((i) {
+                  return Builder(
+                    builder: (BuildContext context) {
+                      return Container(
+                        width: MediaQuery.of(context).size.width,
+                        margin: const EdgeInsets.symmetric(horizontal: 3.0),
+                        decoration: const BoxDecoration(color: Colors.amber),
+                        child: Text(
+                          'text $i',
+                          style: const TextStyle(fontSize: 16.0),
+                        ),
+                      );
+                    },
+                  );
+                }).toList(),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              const Text(
+                """   Você pode visualizar mais informações sobre uma peça clicando no botão com o ícone de uma câmera na parte inferior da tela para abrir a câmera e realizar a leitura do QR Code correspondente à peça!
 Se tiver dificuldades para abrir a câmera e escanear o QR Code, você pode utilizar também a barra de pesquisa abaixo pesquisando pelo título ou pelo código ou pelo autor da peça!""",
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 18),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Row(
-              children: [
-                const Expanded(
-                  flex: 4,
-                  child: TextField(
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Título, código ou autor'),
-                    autofocus: false,
-                  ),
-                ),
-                const SizedBox(
-                  width: 8,
-                ),
-                Expanded(
-                  flex: 1,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      fixedSize: const Size(20, 58),
-                      elevation: 0,
-                      foregroundColor: Colors.white,
-                      backgroundColor: const Color(0xff974141),
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 18),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Row(
+                children: [
+                  const Expanded(
+                    flex: 4,
+                    child: TextField(
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Título, código ou autor'),
+                      autofocus: false,
                     ),
-                    onPressed: () {},
-                    child: const Icon(Icons.search),
                   ),
-                ),
-              ],
-            ),
-          ],
+                  const SizedBox(
+                    width: 8,
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        fixedSize: const Size(20, 58),
+                        elevation: 0,
+                        foregroundColor: Colors.white,
+                        backgroundColor: const Color(0xff974141),
+                      ),
+                      onPressed: () {},
+                      child: const Icon(Icons.search),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
