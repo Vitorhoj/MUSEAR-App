@@ -6,27 +6,45 @@ import 'package:musear/languages_screen.dart';
 import 'package:musear/main.dart';
 import 'package:musear/scheduling_screen.dart';
 import 'package:musear/services_screen.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
-class AboutMuseumScreen extends StatelessWidget {
+class AboutMuseumScreen extends StatefulWidget {
   const AboutMuseumScreen({super.key});
+
+  @override
+  State<AboutMuseumScreen> createState() => _AboutMuseumScreen();
+}
+
+class _AboutMuseumScreen extends State<AboutMuseumScreen> {
 
   @override
   Widget build(BuildContext context) {
 
     const int selectedIndex = 0;
+    String ticket = '';
+
+    readQRCode() async {
+      String code = await FlutterBarcodeScanner.scanBarcode(
+        "#FFFFFF",
+        "Cancelar",
+        false,
+        ScanMode.QR,
+      );
+      setState(() => ticket = code != '-1' ? code : 'Não validado');
+    }
 
     void navigateTo(int index) {
       switch (index) {
         case 0:
           {
             Navigator.push(
-              context, MaterialPageRoute(builder: (_) => const MyHomeScreen()),);
+              context,
+              MaterialPageRoute(builder: (_) => const MyHomeScreen()),);
           }
           break;
         case 1:
           {
-            Navigator.push(context,
-              MaterialPageRoute(builder: (_) => const ChangeLanguagesScreen()),);
+            readQRCode();
           }
           break;
         case 2:
@@ -52,7 +70,8 @@ class AboutMuseumScreen extends StatelessWidget {
               ),
               textColor: Colors.white,
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (_) => const AboutMuseumScreen()),);
+                Navigator.push(context, MaterialPageRoute(
+                    builder: (_) => const AboutMuseumScreen()),);
               },
             ),
             ListTile(
@@ -63,7 +82,8 @@ class AboutMuseumScreen extends StatelessWidget {
               ),
               textColor: Colors.white,
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (_) => const ExhibitionsScreen()),);
+                Navigator.push(context, MaterialPageRoute(
+                    builder: (_) => const ExhibitionsScreen()),);
               },
             ),
             ListTile(
@@ -74,7 +94,8 @@ class AboutMuseumScreen extends StatelessWidget {
               ),
               textColor: Colors.white,
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (_) => const ServicesScreen()),);
+                Navigator.push(context,
+                  MaterialPageRoute(builder: (_) => const ServicesScreen()),);
               },
             ),
             ListTile(
@@ -85,7 +106,8 @@ class AboutMuseumScreen extends StatelessWidget {
               ),
               textColor: Colors.white,
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (_) => const ChangeLanguagesScreen()),);
+                Navigator.push(context, MaterialPageRoute(
+                    builder: (_) => const ChangeLanguagesScreen()),);
               },
             ),
             ListTile(
@@ -96,7 +118,8 @@ class AboutMuseumScreen extends StatelessWidget {
               ),
               textColor: Colors.white,
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (_) => const HelpScreen()),);
+                Navigator.push(context,
+                  MaterialPageRoute(builder: (_) => const HelpScreen()),);
               },
             ),
             ListTile(
@@ -107,7 +130,8 @@ class AboutMuseumScreen extends StatelessWidget {
               ),
               textColor: Colors.white,
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (_) => const AboutAppScreen()),);
+                Navigator.push(context,
+                  MaterialPageRoute(builder: (_) => const AboutAppScreen()),);
               },
             ),
           ],
@@ -153,11 +177,11 @@ class AboutMuseumScreen extends StatelessWidget {
         unselectedLabelStyle: const TextStyle(fontSize: 14),
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home, color: Colors.white,size: 24,),
+            icon: Icon(Icons.home, color: Colors.white, size: 24,),
             label: "Início",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.photo_camera,  color: Colors.white,size: 24,),
+            icon: Icon(Icons.photo_camera, color: Colors.white, size: 24,),
             label: "Câmera",
           ),
           BottomNavigationBarItem(

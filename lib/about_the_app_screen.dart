@@ -6,14 +6,32 @@ import 'package:musear/languages_screen.dart';
 import 'package:musear/main.dart';
 import 'package:musear/scheduling_screen.dart';
 import 'package:musear/services_screen.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
-class AboutAppScreen extends StatelessWidget {
+class AboutAppScreen extends StatefulWidget {
   const AboutAppScreen({super.key});
+
+  @override
+  State<AboutAppScreen> createState() => _AboutAppScreen();
+}
+
+class _AboutAppScreen extends State<AboutAppScreen> {
 
   @override
   Widget build(BuildContext context) {
 
     const int selectedIndex = 0;
+    String ticket = '';
+
+    readQRCode() async {
+      String code = await FlutterBarcodeScanner.scanBarcode(
+        "#FFFFFF",
+        "Cancelar",
+        false,
+        ScanMode.QR,
+      );
+      setState(() => ticket = code != '-1' ? code : 'Não validado');
+    }
 
     void navigateTo(int index) {
       switch (index) {
@@ -23,10 +41,8 @@ class AboutAppScreen extends StatelessWidget {
               context, MaterialPageRoute(builder: (_) => const MyHomeScreen()),);
           }
           break;
-        case 1:
-          {
-            Navigator.push(context,
-              MaterialPageRoute(builder: (_) => const ChangeLanguagesScreen()),);
+        case 1:{
+            readQRCode();
           }
           break;
         case 2:
@@ -131,7 +147,7 @@ class AboutAppScreen extends StatelessWidget {
           ),
           SizedBox(height: 12),
           Text(
-            "  Em virtude da pandemia de covid-19, as visitas aos espaços expositivos do MUSEAR estão restritas ao público.",
+            "Em virtude da pandemia de covid-19, as visitas aos espaços expositivos do MUSEAR estão restritas ao público.",
             style: TextStyle(fontSize: 18),
             textAlign: TextAlign.center,
           ),
