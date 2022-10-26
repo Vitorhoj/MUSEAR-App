@@ -119,23 +119,13 @@ class ExhibitionsScreen extends StatelessWidget {
         title: const Text("MUSEAR"),
         titleTextStyle: const TextStyle(fontSize: 35),
       ),
-      body: Column(
-        children: const [
-          SizedBox(height: 12),
-          Text(
-            "Exposições",
-            style: TextStyle(
-              fontSize: 28,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          SizedBox(height: 12),
-          Text(
-            "  Em virtude da pandemia de covid-19, as visitas aos espaços expositivos do MUSEAR estão restritas ao público.",
-            style: TextStyle(fontSize: 18),
-            textAlign: TextAlign.center,
-          ),
-        ],
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: const [
+
+          ],
+        ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Colors.white,
