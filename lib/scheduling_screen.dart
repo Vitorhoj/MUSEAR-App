@@ -29,12 +29,6 @@ class SchedulingScreen extends StatelessWidget {
               MaterialPageRoute(builder: (_) => const ChangeLanguagesScreen()),);
           }
           break;
-        case 2:
-          {
-            Navigator.push(context,
-              MaterialPageRoute(builder: (_) => const SchedulingScreen()),);
-          }
-          break;
       }
     }
 
