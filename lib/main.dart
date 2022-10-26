@@ -60,10 +60,6 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
 
   void _navigateTo(int index) {
     switch (index) {
-      case 0: {
-        Navigator.push(
-          context, MaterialPageRoute(builder: (_) => const MyHomeScreen()),);
-      } break;
       case 1: {
         readQRCode();
       } break;
@@ -73,7 +69,6 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
       }break;
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +81,7 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
     return Scaffold(
       backgroundColor: const Color(0xfff8e2e2),
         drawer: Drawer(
-          backgroundColor: const Color(0xff6d2f2f),
+          backgroundColor: const Color(0xff974141),
           child: ListView(
           padding: const EdgeInsets.only(top: 40, left: 12),
             children: [
@@ -159,11 +154,16 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
         ),
         ),
       appBar: AppBar(
-        backgroundColor: const Color(0xff842e2e),
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: const Text('MUSEAR'),
-      ),
+          backgroundColor: const Color(0xff842e2e),
+          centerTitle: true,
+          // Here we take the value from the MyHomePage object that was created by
+          // the App.build method, and use it to set our appbar title.
+          title: const Text(
+            "MUSEAR",
+          style: TextStyle(
+              fontSize: 35,
+              fontWeight: FontWeight.normal),),
+        ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: SingleChildScrollView(
