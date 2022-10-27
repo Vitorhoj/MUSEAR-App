@@ -1,0 +1,16 @@
+{
+    "noticias": "Notícias",
+    "inicio": "Início",
+    "camera": "Câmera",
+    "agendamento": "Agendamento",
+    "pesquisaPeca": "Título, código ou autor",
+    "qrCodeInfo": "Você pode visualizar mais informações sobre uma peça clicando no botão com o ícone de uma câmera na parte inferior da tela para abrir a câmera e realizar a leitura do QR Code correspondente àquela peça!",
+    "pesquisaPecaInfo": "Se tiver dificuldades para abrir a câmera e escanear o QR Code, você pode utilizar também a barra de pesquisa abaixo pesquisando pelo título, pelo código ou pelo autor da peça!",
+    "sobreOMuseu": "Sobre o Museu",
+    "exposicoes": "Exposições",
+    "servicos": "Serviços",
+    "idiomas": "Idiomas",
+    "ajuda": "Ajuda",
+    "sobre": "Sobre",
+    "cancelar": "Cancelar"
+}

@@ -1,19 +1,38 @@
 import 'package:flutter/material.dart';
-import 'package:musear/about_the_app_screen.dart';
-import 'package:musear/about_the_museum_screen.dart';
-import 'package:musear/help_screen.dart';
-import 'package:musear/languages_screen.dart';
+import 'package:musear/screens/about_the_app_screen.dart';
+import 'package:musear/screens/about_the_museum_screen.dart';
+import 'package:musear/screens/exhibitions_screen.dart';
+import 'package:musear/screens/help_screen.dart';
 import 'package:musear/main.dart';
-import 'package:musear/scheduling_screen.dart';
-import 'package:musear/services_screen.dart';
+import 'package:musear/screens/scheduling_screen.dart';
+import 'package:musear/screens/services_screen.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
-class ExhibitionsScreen extends StatelessWidget {
-  const ExhibitionsScreen({super.key});
+
+class ChangeLanguagesScreen extends StatefulWidget {
+  const ChangeLanguagesScreen({super.key});
+
+  @override
+  State<ChangeLanguagesScreen> createState() => _ChangeLanguagesScreen();
+}
+
+class _ChangeLanguagesScreen extends State<ChangeLanguagesScreen> {
 
   @override
   Widget build(BuildContext context) {
 
     const int selectedIndex = 0;
+    String ticket = '';
+
+    readQRCode() async {
+      String code = await FlutterBarcodeScanner.scanBarcode(
+        "#FFFFFF",
+        "Cancelar",
+        false,
+        ScanMode.QR,
+      );
+      setState(() => ticket = code != '-1' ? code : 'Não validado');
+    }
 
     void navigateTo(int index) {
       switch (index) {
@@ -23,10 +42,8 @@ class ExhibitionsScreen extends StatelessWidget {
               context, MaterialPageRoute(builder: (_) => const MyHomeScreen()),);
           }
           break;
-        case 1:
-          {
-            Navigator.push(context,
-              MaterialPageRoute(builder: (_) => const ChangeLanguagesScreen()),);
+        case 1:{
+            readQRCode();
           }
           break;
         case 2:
@@ -45,6 +62,16 @@ class ExhibitionsScreen extends StatelessWidget {
         child: ListView(
           padding: const EdgeInsets.only(top: 40, left: 12),
           children: [
+            ListTile(
+              title: const Text(
+                "Início",
+                style: TextStyle(fontSize: 20),
+              ),
+              textColor: Colors.white,
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (_) => const AboutMuseumScreen()),);
+              },
+            ),
             ListTile(
               title: const Text(
                 "Sobre o Museu",
@@ -121,9 +148,44 @@ class ExhibitionsScreen extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: const [
-
+        child: ListView(
+          children: [
+            Container(
+              alignment: AlignmentDirectional.centerStart,
+              height: 50,
+              color: const Color(0xfff8e2e2),
+              //  child: const TextButton(
+              //     onPressed: () {},
+              child: const Text(
+                'Português',
+                style: TextStyle(fontSize: 20),
+              ),
+            ),
+            // ),
+            Container(
+              alignment: AlignmentDirectional.centerStart,
+              height: 50,
+              color: const Color(0xfff8e2e2),
+              // child: const TextButton(
+              //   onPressed: () {},
+              child: const Text(
+                'Espanhol',
+                style: TextStyle(fontSize: 20),
+              ),
+            ),
+            // ),
+            Container(
+              alignment: AlignmentDirectional.centerStart,
+              height: 50,
+              color: const Color(0xfff8e2e2),
+              // child: const TextButton(
+              //   onPressed: () {},
+              child: const Text(
+                'Inglês',
+                style: TextStyle(fontSize: 20),
+              ),
+            ),
+            // ),
           ],
         ),
       ),
@@ -135,16 +197,29 @@ class ExhibitionsScreen extends StatelessWidget {
         unselectedLabelStyle: const TextStyle(fontSize: 14),
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home, color: Colors.white,size: 24,),
+            icon: Icon(
+              Icons.home,
+              color: Colors.white,
+              size: 24,
+            ),
             label: "Início",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.photo_camera,  color: Colors.white,size: 24,),
+            icon: Icon(
+              Icons.photo_camera,
+              color: Colors.white,
+              size: 24,
+            ),
             label: "Câmera",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.schedule, color: Colors.white, size: 24,),
-            label: "Agendamento",),
+            icon: Icon(
+              Icons.schedule,
+              color: Colors.white,
+              size: 24,
+            ),
+            label: "Agendamento",
+          ),
         ],
         currentIndex: selectedIndex,
         onTap: navigateTo,),

@@ -1,29 +1,52 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:musear/about_the_app_screen.dart';
-import 'package:musear/about_the_museum_screen.dart';
-import 'package:musear/exhibitions_screen.dart';
-import 'package:musear/help_screen.dart';
-import 'package:musear/languages_screen.dart';
-import 'package:musear/scheduling_screen.dart';
-import 'package:musear/services_screen.dart';
+import 'package:musear/classes/language.dart';
+import 'package:musear/screens/about_the_app_screen.dart';
+import 'package:musear/screens/about_the_museum_screen.dart';
+import 'package:musear/screens/exhibitions_screen.dart';
+import 'package:musear/screens/help_screen.dart';
+import 'package:musear/screens/languages_screen.dart';
+import 'package:musear/screens/more_info_piece_screen.dart';
+import 'package:musear/screens/scheduling_screen.dart';
+import 'package:musear/screens/services_screen.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
-
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+
+  static void setLocale(BuildContext context, Locale newLocale) {
+    _MyAppState? state = context.findAncestorStateOfType<_MyAppState>();
+    state?.setLocale(newLocale);
+  }
+}
+
+class _MyAppState extends State<MyApp>{
+  Locale? _locale;
+
+  setLocale(Locale locale){
+    setState(() {
+      _locale = locale;
+    });
+  }
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: MyHomeScreen(),
-      //routes: Map<>,
+      home: const MyHomeScreen(),
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      locale: _locale,
     );
   }
 }
@@ -42,6 +65,7 @@ class MyHomeScreen extends StatefulWidget {
 
   @override
   State<MyHomeScreen> createState() => _MyHomeScreenState();
+
 }
 
 class _MyHomeScreenState extends State<MyHomeScreen> {
@@ -52,7 +76,7 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
   readQRCode() async {
     String code = await FlutterBarcodeScanner.scanBarcode(
       "#FFFFFF",
-      "Cancelar",
+      AppLocalizations.of(context)!.cancelar,
       false,
       ScanMode.QR,
     );
@@ -86,10 +110,19 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
           child: ListView(
           padding: const EdgeInsets.only(top: 40, left: 12),
             children: [
+              ListTile(
+                title: Text(AppLocalizations.of(context)!.inicio,
+                  style: const TextStyle(fontSize: 20),
+                ),
+                textColor: Colors.white,
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (_) => const AboutMuseumScreen()),);
+                },
+              ),
             ListTile(
-              title: const Text(
-                "Sobre o Museu",
-                style: TextStyle(fontSize: 20),
+              title: Text(
+                AppLocalizations.of(context)!.sobreOMuseu,
+                style: const TextStyle(fontSize: 20),
               ),
               textColor: Colors.white,
               onTap: () {
@@ -97,10 +130,9 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
               },
             ),
             ListTile(
-              title: const Text(
-                "Exposições",
-                style: TextStyle(fontSize: 20),
-                selectionColor: Color(0xff974141),
+              title: Text(
+                AppLocalizations.of(context)!.exposicoes,
+                style: const TextStyle(fontSize: 20),
               ),
               textColor: Colors.white,
               onTap: () {
@@ -108,10 +140,9 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
               },
             ),
             ListTile(
-              title: const Text(
-                "Serviços",
-                style: TextStyle(fontSize: 20),
-                selectionColor: Color(0xff974141),
+              title: Text(
+                AppLocalizations.of(context)!.servicos,
+                style: const TextStyle(fontSize: 20),
               ),
               textColor: Colors.white,
               onTap: () {
@@ -119,10 +150,9 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
               },
             ),
             ListTile(
-              title: const Text(
-                "Idiomas",
-                style: TextStyle(fontSize: 20),
-                selectionColor: Color(0xff974141),
+              title: Text(
+                AppLocalizations.of(context)!.idiomas,
+                style: const TextStyle(fontSize: 20),
               ),
               textColor: Colors.white,
               onTap: () {
@@ -130,10 +160,9 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
               },
             ),
             ListTile(
-              title: const Text(
-                "Ajuda",
-                style: TextStyle(fontSize: 20),
-                selectionColor: Color(0xff974141),
+              title: Text(
+                AppLocalizations.of(context)!.ajuda,
+                style: const TextStyle(fontSize: 20),
               ),
               textColor: Colors.white,
               onTap: () {
@@ -141,10 +170,9 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
               },
             ),
             ListTile(
-              title: const Text(
-                "Sobre",
-                style: TextStyle(fontSize: 20),
-                selectionColor: Color(0xff974141),
+              title: Text(
+                AppLocalizations.of(context)!.sobre,
+                style: const TextStyle(fontSize: 20),
               ),
               textColor: Colors.white,
               onTap: () {
@@ -155,15 +183,45 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
         ),
         ),
       appBar: AppBar(
+        title: const Text(
+          "MUSEAR",
+          style: TextStyle(
+              fontSize: 28,
+              fontWeight: FontWeight.normal),
+        ),
           backgroundColor: const Color(0xff842e2e),
           centerTitle: true,
-          // Here we take the value from the MyHomePage object that was created by
-          // the App.build method, and use it to set our appbar title.
-          title: const Text(
-            "MUSEAR",
-          style: TextStyle(
-              fontSize: 35,
-              fontWeight: FontWeight.normal),),
+        actions: <Widget> [
+           Padding(
+              padding: const EdgeInsets.all(8.0),
+           child: DropdownButton<Language>(
+             underline: const SizedBox(),
+             icon: const Icon(
+               Icons.language,
+               color: Colors.white,),
+           onChanged: (Language? language) {
+               if(language != null) {
+                 MyApp.setLocale(context, Locale(language.languageCode,''));
+               }
+             },
+               items: Language.languageList()
+                   .map<DropdownMenuItem<Language>>(
+                       (e) => DropdownMenuItem<Language>(
+                         value: e,
+                         child: Row(
+                           mainAxisAlignment: MainAxisAlignment.spaceAround,
+                           children: <Widget>[
+                             Text(e.flag,
+                             style: const TextStyle(fontSize: 30),
+                             ),
+                           Text(e.name)],
+                         ),
+                       ),
+               )
+               .toList(),
+           ),
+           ),
+        ],
         ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -171,17 +229,17 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
           reverse: true,
           child: Column(
             children: [
-              const Align(
+               Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  "Notícias",
-                  style: TextStyle(
+                  AppLocalizations.of(context)!.noticias,
+                  style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 22,
                   ),
                   textAlign: TextAlign.start,
                 ),
-              ),
+          ),
               CarouselSlider(
                 options: CarouselOptions(height: 180.0),
                 items: [1, 2, 3, 4].map((i) {
@@ -203,23 +261,26 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
               const SizedBox(
                 height: 20,
               ),
-              const Text(
-                """   Você pode visualizar mais informações sobre uma peça clicando no botão com o ícone de uma câmera na parte inferior da tela para abrir a câmera e realizar a leitura do QR Code correspondente à peça!
-Se tiver dificuldades para abrir a câmera e escanear o QR Code, você pode utilizar também a barra de pesquisa abaixo pesquisando pelo título ou pelo código ou pelo autor da peça!""",
+               Text(
+                AppLocalizations.of(context)!.qrCodeInfo,
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 18),
+                style: const TextStyle(fontSize: 18),
               ),
+              Text(AppLocalizations.of(context)!.pesquisaPecaInfo,
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontSize: 18),
+          ),
               const SizedBox(
                 height: 20,
               ),
               Row(
                 children: [
-                  const Expanded(
+                   Expanded(
                     flex: 4,
                     child: TextField(
                       decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          labelText: 'Título, código ou autor'),
+                          border: const OutlineInputBorder(),
+                          labelText: AppLocalizations.of(context)!.pesquisaPeca),
                       autofocus: false,
                     ),
                   ),
@@ -235,7 +296,9 @@ Se tiver dificuldades para abrir a câmera e escanear o QR Code, você pode util
                         foregroundColor: Colors.white,
                         backgroundColor: const Color(0xff974141),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (_) => const MoreInfoPieceScreen()),);
+                      },
                       child: const Icon(Icons.search),
                     ),
                   ),
@@ -251,17 +314,27 @@ Se tiver dificuldades para abrir a câmera e escanear o QR Code, você pode util
         unselectedItemColor: Colors.white,
         selectedLabelStyle: const TextStyle(fontSize: 14),
         unselectedLabelStyle: const TextStyle(fontSize: 14),
-        items: const [
+        items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home, color: Colors.white,size: 24,),
-            label: "Início",
+            icon: const Icon(
+              Icons.home,
+              color: Colors.white,
+              size: 24,),
+            label: AppLocalizations.of(context)!.inicio,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.photo_camera,  color: Colors.white,size: 24,),
-            label: "Câmera",
+            icon: const Icon(
+              Icons.photo_camera,
+              color: Colors.white,
+              size: 24,),
+            label: AppLocalizations.of(context)!.camera,
           ),
-          BottomNavigationBarItem(icon: Icon(Icons.schedule, color: Colors.white, size: 24,),
-            label: "Agendamento",),
+          BottomNavigationBarItem(
+            icon: const Icon(
+              Icons.schedule,
+              color: Colors.white,
+              size: 24,),
+            label: AppLocalizations.of(context)!.agendamento,),
         ],
         currentIndex: _selectedIndex,
       onTap: _navigateTo,),

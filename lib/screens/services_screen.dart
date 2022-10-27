@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:musear/about_the_app_screen.dart';
-import 'package:musear/about_the_museum_screen.dart';
-import 'package:musear/exhibitions_screen.dart';
-import 'package:musear/help_screen.dart';
-import 'package:musear/languages_screen.dart';
+import 'package:musear/screens/about_the_app_screen.dart';
+import 'package:musear/screens/about_the_museum_screen.dart';
+import 'package:musear/screens/exhibitions_screen.dart';
+import 'package:musear/screens/help_screen.dart';
+import 'package:musear/screens/languages_screen.dart';
 import 'package:musear/main.dart';
-import 'package:musear/services_screen.dart';
+import 'package:musear/screens/scheduling_screen.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
-class SchedulingScreen extends StatefulWidget {
-  const SchedulingScreen({super.key});
+class ServicesScreen extends StatefulWidget {
+  const ServicesScreen({super.key});
 
   @override
-  State<SchedulingScreen> createState() => _SchedulingScreen();
+  State<ServicesScreen> createState() => _ServicesScreen();
 }
 
-class _SchedulingScreen extends State<SchedulingScreen> {
+class _ServicesScreen  extends State<ServicesScreen> {
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +45,12 @@ class _SchedulingScreen extends State<SchedulingScreen> {
             readQRCode();
           }
           break;
+        case 2:
+          {
+            Navigator.push(context,
+              MaterialPageRoute(builder: (_) => const SchedulingScreen()),);
+          }
+          break;
       }
     }
 
@@ -55,6 +61,16 @@ class _SchedulingScreen extends State<SchedulingScreen> {
         child: ListView(
           padding: const EdgeInsets.only(top: 40, left: 12),
           children: [
+            ListTile(
+              title: const Text(
+                "Início",
+                style: TextStyle(fontSize: 20),
+              ),
+              textColor: Colors.white,
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (_) => const AboutMuseumScreen()),);
+              },
+            ),
             ListTile(
               title: const Text(
                 "Sobre o Museu",
@@ -133,7 +149,7 @@ class _SchedulingScreen extends State<SchedulingScreen> {
         children: const [
           SizedBox(height: 12),
           Text(
-            "Agendar Visitas",
+            "Serviços",
             style: TextStyle(
               fontSize: 28,
               fontWeight: FontWeight.bold,

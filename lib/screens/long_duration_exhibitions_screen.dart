@@ -1,37 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:musear/about_the_app_screen.dart';
-import 'package:musear/about_the_museum_screen.dart';
-import 'package:musear/exhibitions_screen.dart';
-import 'package:musear/languages_screen.dart';
+import 'package:musear/screens/about_the_app_screen.dart';
+import 'package:musear/screens/about_the_museum_screen.dart';
+import 'package:musear/screens/help_screen.dart';
+import 'package:musear/screens/languages_screen.dart';
 import 'package:musear/main.dart';
-import 'package:musear/scheduling_screen.dart';
-import 'package:musear/services_screen.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:musear/screens/scheduling_screen.dart';
+import 'package:musear/screens/services_screen.dart';
 
-class HelpScreen extends StatefulWidget {
-  const HelpScreen({super.key});
-
-  @override
-  State<HelpScreen> createState() => _HelpScreen();
-}
-
-class _HelpScreen extends State<HelpScreen> {
+class ExhibitionsScreen extends StatelessWidget {
+  const ExhibitionsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
 
     const int selectedIndex = 0;
-    String ticket = '';
-
-    readQRCode() async {
-      String code = await FlutterBarcodeScanner.scanBarcode(
-        "#FFFFFF",
-        "Cancelar",
-        false,
-        ScanMode.QR,
-      );
-      setState(() => ticket = code != '-1' ? code : 'Não validado');
-    }
 
     void navigateTo(int index) {
       switch (index) {
@@ -41,8 +23,10 @@ class _HelpScreen extends State<HelpScreen> {
               context, MaterialPageRoute(builder: (_) => const MyHomeScreen()),);
           }
           break;
-        case 1:{
-          readQRCode();
+        case 1:
+          {
+            Navigator.push(context,
+              MaterialPageRoute(builder: (_) => const ChangeLanguagesScreen()),);
           }
           break;
         case 2:
@@ -61,6 +45,16 @@ class _HelpScreen extends State<HelpScreen> {
         child: ListView(
           padding: const EdgeInsets.only(top: 40, left: 12),
           children: [
+            ListTile(
+              title: const Text(
+                "Início",
+                style: TextStyle(fontSize: 20),
+              ),
+              textColor: Colors.white,
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (_) => const AboutMuseumScreen()),);
+              },
+            ),
             ListTile(
               title: const Text(
                 "Sobre o Museu",
@@ -135,23 +129,13 @@ class _HelpScreen extends State<HelpScreen> {
         title: const Text("MUSEAR"),
         titleTextStyle: const TextStyle(fontSize: 35),
       ),
-      body: Column(
-        children: const [
-          SizedBox(height: 12),
-          Text(
-            "Ajuda",
-            style: TextStyle(
-              fontSize: 28,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          SizedBox(height: 12),
-          Text(
-            "Em virtude da pandemia de covid-19, as visitas aos espaços expositivos do MUSEAR estão restritas ao público.",
-            style: TextStyle(fontSize: 18),
-            textAlign: TextAlign.center,
-          ),
-        ],
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: const [
+
+          ],
+        ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Colors.white,

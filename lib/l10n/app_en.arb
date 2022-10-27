@@ -1,0 +1,16 @@
+{
+    "noticias": "News",
+    "inicio": "Home",
+    "camera": "Camera",
+    "agendamento": "Scheduling",
+    "pesquisaPeca": "Title, code or author",
+    "qrCodeInfo": "You can view more information about a piece by clicking on the button with a camera icon at the bottom of the screen to open the camera and scan the QR Code corresponding to that piece!",
+    "pesquisaPecaInfo": "If you have difficulties opening the camera and scanning the QR Code, you can also use the search bar below by searching for the title, the code or the author of the piece!",
+    "sobreOMuseu": "About the Museum",
+    "exposicoes": "Exhibitions",
+    "servicos": "Services",
+    "idiomas": "Languages",
+    "ajuda": "Help",
+    "sobre": "About",
+    "cancelar": "Cancel"
+}
