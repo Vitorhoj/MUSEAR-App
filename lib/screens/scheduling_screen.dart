@@ -7,6 +7,8 @@ import 'package:musear/screens/languages_screen.dart';
 import 'package:musear/main.dart';
 import 'package:musear/screens/services_screen.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:musear/classes/language.dart';
+import 'package:musear/classes/language_constants.dart';
 
 class SchedulingScreen extends StatefulWidget {
   const SchedulingScreen({super.key});
@@ -62,7 +64,7 @@ class _SchedulingScreen extends State<SchedulingScreen> {
               ),
               textColor: Colors.white,
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (_) => const AboutMuseumScreen()),);
+                Navigator.push(context, MaterialPageRoute(builder: (_) => const MyHomeScreen()),);
               },
             ),
             ListTile(
@@ -138,6 +140,40 @@ class _SchedulingScreen extends State<SchedulingScreen> {
         centerTitle: true,
         title: const Text("MUSEAR"),
         titleTextStyle: const TextStyle(fontSize: 35),
+        actions: <Widget> [Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: DropdownButton<Language>(
+        underline: const SizedBox(),
+        icon: const Icon(
+          Icons.language,
+          color: Colors.white,
+        ),
+        onChanged: (Language? language) async {
+          if (language != null) {
+            Locale _locale = await setLocale(language.languageCode);
+            MyApp.setLocale(context, _locale);
+          }
+        },
+        items: Language.languageList()
+            .map<DropdownMenuItem<Language>>(
+              (e) => DropdownMenuItem<Language>(
+            value: e,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                Text(
+                  e.flag,
+                  style: const TextStyle(fontSize: 30),
+                ),
+                Text(e.name)
+              ],
+            ),
+          ),
+        )
+            .toList(),
+      ),
+    ),
+    ],
       ),
       body: Column(
         children: const [

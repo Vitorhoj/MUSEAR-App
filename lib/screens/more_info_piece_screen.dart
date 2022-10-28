@@ -7,6 +7,8 @@ import 'package:musear/screens/languages_screen.dart';
 import 'package:musear/main.dart';
 import 'package:musear/screens/services_screen.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:musear/classes/language_constants.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 class MoreInfoPieceScreen extends StatefulWidget {
   const MoreInfoPieceScreen({super.key});
@@ -139,23 +141,50 @@ class _MoreInfoPieceScreen extends State<MoreInfoPieceScreen> {
         title: const Text("MUSEAR"),
         titleTextStyle: const TextStyle(fontSize: 35),
       ),
-      body: Column(
-        children: const [
-          SizedBox(height: 12),
-          Text(
-            "Agendar Visitas",
-            style: TextStyle(
-              fontSize: 28,
-              fontWeight: FontWeight.bold,
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            Text(
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 28,
+              ),
+              translation(context).tituloPeca,
             ),
-          ),
-          SizedBox(height: 12),
-          Text(
-            "Em virtude da pandemia de covid-19, as visitas aos espaços expositivos do MUSEAR estão restritas ao público.",
-            style: TextStyle(fontSize: 18),
-            textAlign: TextAlign.center,
-          ),
-        ],
+            const SizedBox(
+              height: 10,),
+            CarouselSlider(
+              options: CarouselOptions(height: 180.0),
+              items: [1, 2, 3, 4].map((i) {
+                return Builder(
+                  builder: (BuildContext context) {
+                    return Container(
+                      width: MediaQuery.of(context).size.width,
+                      margin: const EdgeInsets.symmetric(horizontal: 3.0),
+                      decoration: const BoxDecoration(color: Colors.amber),
+                      child: Text(
+                        'text $i',
+                        style: const TextStyle(fontSize: 16.0),
+                      ),
+                    );
+                  },
+                );
+              }).toList(),
+            ),
+            const SizedBox(
+              height: 10,),
+            Text(
+              translation(context).qrCodeInfo,
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 18),
+            ),
+            Text(
+              translation(context).pesquisaPecaInfo,
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 18),
+            ),],
+        ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Colors.white,

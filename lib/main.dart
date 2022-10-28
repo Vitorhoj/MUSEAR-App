@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:musear/classes/language.dart';
 import 'package:musear/screens/about_the_app_screen.dart';
 import 'package:musear/screens/about_the_museum_screen.dart';
@@ -9,9 +11,8 @@ import 'package:musear/screens/languages_screen.dart';
 import 'package:musear/screens/more_info_piece_screen.dart';
 import 'package:musear/screens/scheduling_screen.dart';
 import 'package:musear/screens/services_screen.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:musear/classes/language_constants.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -38,7 +39,13 @@ class _MyAppState extends State<MyApp>{
     });
   }
 
-  // This widget is the root of your application.
+  @override
+  void didChangeDependencies() {
+    getLocale().then((locale) => setLocale(locale));
+    super.didChangeDependencies();
+  }
+
+  // This widget is the root of the application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -76,7 +83,7 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
   readQRCode() async {
     String code = await FlutterBarcodeScanner.scanBarcode(
       "#FFFFFF",
-      AppLocalizations.of(context)!.cancelar,
+      translation(context).cancelar,
       false,
       ScanMode.QR,
     );
@@ -111,17 +118,17 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
           padding: const EdgeInsets.only(top: 40, left: 12),
             children: [
               ListTile(
-                title: Text(AppLocalizations.of(context)!.inicio,
+                title: Text(translation(context).inicio,
                   style: const TextStyle(fontSize: 20),
                 ),
                 textColor: Colors.white,
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (_) => const AboutMuseumScreen()),);
+                  Navigator.push(context, MaterialPageRoute(builder: (_) => const MyHomeScreen()),);
                 },
               ),
             ListTile(
               title: Text(
-                AppLocalizations.of(context)!.sobreOMuseu,
+                translation(context).sobreOMuseu,
                 style: const TextStyle(fontSize: 20),
               ),
               textColor: Colors.white,
@@ -131,7 +138,7 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
             ),
             ListTile(
               title: Text(
-                AppLocalizations.of(context)!.exposicoes,
+                translation(context).exposicoes,
                 style: const TextStyle(fontSize: 20),
               ),
               textColor: Colors.white,
@@ -141,7 +148,7 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
             ),
             ListTile(
               title: Text(
-                AppLocalizations.of(context)!.servicos,
+                translation(context).servicos,
                 style: const TextStyle(fontSize: 20),
               ),
               textColor: Colors.white,
@@ -151,7 +158,7 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
             ),
             ListTile(
               title: Text(
-                AppLocalizations.of(context)!.idiomas,
+                translation(context).idiomas,
                 style: const TextStyle(fontSize: 20),
               ),
               textColor: Colors.white,
@@ -161,7 +168,7 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
             ),
             ListTile(
               title: Text(
-                AppLocalizations.of(context)!.ajuda,
+                translation(context).ajuda,
                 style: const TextStyle(fontSize: 20),
               ),
               textColor: Colors.white,
@@ -171,7 +178,7 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
             ),
             ListTile(
               title: Text(
-                AppLocalizations.of(context)!.sobre,
+                translation(context).sobre,
                 style: const TextStyle(fontSize: 20),
               ),
               textColor: Colors.white,
@@ -192,35 +199,39 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
           backgroundColor: const Color(0xff842e2e),
           centerTitle: true,
         actions: <Widget> [
-           Padding(
-              padding: const EdgeInsets.all(8.0),
-           child: DropdownButton<Language>(
-             underline: const SizedBox(),
-             icon: const Icon(
-               Icons.language,
-               color: Colors.white,),
-           onChanged: (Language? language) {
-               if(language != null) {
-                 MyApp.setLocale(context, Locale(language.languageCode,''));
-               }
-             },
-               items: Language.languageList()
-                   .map<DropdownMenuItem<Language>>(
-                       (e) => DropdownMenuItem<Language>(
-                         value: e,
-                         child: Row(
-                           mainAxisAlignment: MainAxisAlignment.spaceAround,
-                           children: <Widget>[
-                             Text(e.flag,
-                             style: const TextStyle(fontSize: 30),
-                             ),
-                           Text(e.name)],
-                         ),
-                       ),
-               )
-               .toList(),
-           ),
-           ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: DropdownButton<Language>(
+              underline: const SizedBox(),
+              icon: const Icon(
+                Icons.language,
+                color: Colors.white,
+              ),
+              onChanged: (Language? language) async {
+                if (language != null) {
+                  Locale _locale = await setLocale(language.languageCode);
+                  MyApp.setLocale(context, _locale);
+                }
+              },
+              items: Language.languageList()
+                  .map<DropdownMenuItem<Language>>(
+                    (e) => DropdownMenuItem<Language>(
+                      value: e,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                          Text(
+                            e.flag,
+                            style: const TextStyle(fontSize: 30),
+                          ),
+                          Text(e.name)
+                        ],
+                      ),
+                    ),
+                  )
+                  .toList(),
+            ),
+          ),
         ],
         ),
       body: Padding(
@@ -232,7 +243,7 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
                Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  AppLocalizations.of(context)!.noticias,
+                  translation(context).noticias,
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 22,
@@ -262,11 +273,12 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
                 height: 20,
               ),
                Text(
-                AppLocalizations.of(context)!.qrCodeInfo,
+                 translation(context).qrCodeInfo,
                 textAlign: TextAlign.center,
                 style: const TextStyle(fontSize: 18),
               ),
-              Text(AppLocalizations.of(context)!.pesquisaPecaInfo,
+              Text(
+                translation(context).pesquisaPecaInfo,
                 textAlign: TextAlign.center,
                 style: const TextStyle(fontSize: 18),
           ),
@@ -280,7 +292,7 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
                     child: TextField(
                       decoration: InputDecoration(
                           border: const OutlineInputBorder(),
-                          labelText: AppLocalizations.of(context)!.pesquisaPeca),
+                          labelText: translation(context).pesquisaPeca),
                       autofocus: false,
                     ),
                   ),
@@ -320,21 +332,21 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
               Icons.home,
               color: Colors.white,
               size: 24,),
-            label: AppLocalizations.of(context)!.inicio,
+            label: translation(context).inicio,
           ),
           BottomNavigationBarItem(
             icon: const Icon(
               Icons.photo_camera,
               color: Colors.white,
               size: 24,),
-            label: AppLocalizations.of(context)!.camera,
+            label: translation(context).camera,
           ),
           BottomNavigationBarItem(
             icon: const Icon(
               Icons.schedule,
               color: Colors.white,
               size: 24,),
-            label: AppLocalizations.of(context)!.agendamento,),
+            label: translation(context).agendamento,),
         ],
         currentIndex: _selectedIndex,
       onTap: _navigateTo,),

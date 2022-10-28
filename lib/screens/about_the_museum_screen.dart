@@ -7,6 +7,8 @@ import 'package:musear/main.dart';
 import 'package:musear/screens/scheduling_screen.dart';
 import 'package:musear/screens/services_screen.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:musear/classes/language_constants.dart';
+import 'package:musear/classes/language.dart';
 
 class AboutMuseumScreen extends StatefulWidget {
   const AboutMuseumScreen({super.key});
@@ -70,7 +72,8 @@ class _AboutMuseumScreen extends State<AboutMuseumScreen> {
               ),
               textColor: Colors.white,
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (_) => const AboutMuseumScreen()),);
+                Navigator.push(context, MaterialPageRoute(
+                    builder: (_) => const MyHomeScreen()),);
               },
             ),
             ListTile(
@@ -152,6 +155,40 @@ class _AboutMuseumScreen extends State<AboutMuseumScreen> {
         centerTitle: true,
         title: const Text("MUSEAR"),
         titleTextStyle: const TextStyle(fontSize: 35),
+        actions: <Widget> [Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: DropdownButton<Language>(
+            underline: const SizedBox(),
+            icon: const Icon(
+              Icons.language,
+              color: Colors.white,
+            ),
+            onChanged: (Language? language) async {
+              if (language != null) {
+                Locale _locale = await setLocale(language.languageCode);
+                MyApp.setLocale(context, _locale);
+              }
+            },
+            items: Language.languageList()
+                .map<DropdownMenuItem<Language>>(
+                  (e) => DropdownMenuItem<Language>(
+                value: e,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    Text(
+                      e.flag,
+                      style: const TextStyle(fontSize: 30),
+                    ),
+                    Text(e.name)
+                  ],
+                ),
+              ),
+            )
+                .toList(),
+          ),
+        ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -185,18 +222,18 @@ class _AboutMuseumScreen extends State<AboutMuseumScreen> {
         unselectedItemColor: Colors.white,
         selectedLabelStyle: const TextStyle(fontSize: 14),
         unselectedLabelStyle: const TextStyle(fontSize: 14),
-        items: const [
+        items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.home, color: Colors.white, size: 24,),
-            label: "Início",
+            label: translation(context).inicio,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.photo_camera, color: Colors.white, size: 24,),
-            label: "Câmera",
+            label: translation(context).camera,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.schedule, color: Colors.white, size: 24,),
-            label: "Agendamento",),
+            label: translation(context).agendamento,),
         ],
         currentIndex: selectedIndex,
         onTap: navigateTo,),

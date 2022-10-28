@@ -7,7 +7,8 @@ import 'package:musear/main.dart';
 import 'package:musear/screens/scheduling_screen.dart';
 import 'package:musear/screens/services_screen.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
-
+import 'package:musear/classes/language.dart';
+import 'package:musear/classes/language_constants.dart';
 
 class ChangeLanguagesScreen extends StatefulWidget {
   const ChangeLanguagesScreen({super.key});
@@ -20,7 +21,6 @@ class _ChangeLanguagesScreen extends State<ChangeLanguagesScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     const int selectedIndex = 0;
     String ticket = '';
 
@@ -39,17 +39,22 @@ class _ChangeLanguagesScreen extends State<ChangeLanguagesScreen> {
         case 0:
           {
             Navigator.push(
-              context, MaterialPageRoute(builder: (_) => const MyHomeScreen()),);
+              context,
+              MaterialPageRoute(builder: (_) => const MyHomeScreen()),
+            );
           }
           break;
-        case 1:{
+        case 1:
+          {
             readQRCode();
           }
           break;
         case 2:
           {
-            Navigator.push(context,
-              MaterialPageRoute(builder: (_) => const SchedulingScreen()),);
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const SchedulingScreen()),
+            );
           }
           break;
       }
@@ -69,7 +74,10 @@ class _ChangeLanguagesScreen extends State<ChangeLanguagesScreen> {
               ),
               textColor: Colors.white,
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (_) => const AboutMuseumScreen()),);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const MyHomeScreen()),
+                );
               },
             ),
             ListTile(
@@ -79,7 +87,10 @@ class _ChangeLanguagesScreen extends State<ChangeLanguagesScreen> {
               ),
               textColor: Colors.white,
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (_) => const AboutMuseumScreen()),);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const AboutMuseumScreen()),
+                );
               },
             ),
             ListTile(
@@ -90,7 +101,10 @@ class _ChangeLanguagesScreen extends State<ChangeLanguagesScreen> {
               ),
               textColor: Colors.white,
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (_) => const ExhibitionsScreen()),);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const ExhibitionsScreen()),
+                );
               },
             ),
             ListTile(
@@ -101,7 +115,10 @@ class _ChangeLanguagesScreen extends State<ChangeLanguagesScreen> {
               ),
               textColor: Colors.white,
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (_) => const ServicesScreen()),);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const ServicesScreen()),
+                );
               },
             ),
             ListTile(
@@ -112,7 +129,11 @@ class _ChangeLanguagesScreen extends State<ChangeLanguagesScreen> {
               ),
               textColor: Colors.white,
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (_) => const ChangeLanguagesScreen()),);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (_) => const ChangeLanguagesScreen()),
+                );
               },
             ),
             ListTile(
@@ -123,7 +144,10 @@ class _ChangeLanguagesScreen extends State<ChangeLanguagesScreen> {
               ),
               textColor: Colors.white,
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (_) => const HelpScreen()),);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const HelpScreen()),
+                );
               },
             ),
             ListTile(
@@ -134,7 +158,10 @@ class _ChangeLanguagesScreen extends State<ChangeLanguagesScreen> {
               ),
               textColor: Colors.white,
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (_) => const AboutAppScreen()),);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const AboutAppScreen()),
+                );
               },
             ),
           ],
@@ -145,6 +172,41 @@ class _ChangeLanguagesScreen extends State<ChangeLanguagesScreen> {
         centerTitle: true,
         title: const Text("MUSEAR"),
         titleTextStyle: const TextStyle(fontSize: 35),
+        actions: <Widget> [
+          Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: DropdownButton<Language>(
+            underline: const SizedBox(),
+            icon: const Icon(
+              Icons.language,
+              color: Colors.white,
+            ),
+            onChanged: (Language? language) async {
+              if (language != null) {
+                Locale _locale = await setLocale(language.languageCode);
+                MyApp.setLocale(context, _locale);
+              }
+            },
+            items: Language.languageList()
+                .map<DropdownMenuItem<Language>>(
+                  (e) => DropdownMenuItem<Language>(
+                value: e,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    Text(
+                      e.flag,
+                      style: const TextStyle(fontSize: 30),
+                    ),
+                    Text(e.name)
+                  ],
+                ),
+              ),
+            )
+                .toList(),
+          ),
+        ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -154,14 +216,13 @@ class _ChangeLanguagesScreen extends State<ChangeLanguagesScreen> {
               alignment: AlignmentDirectional.centerStart,
               height: 50,
               color: const Color(0xfff8e2e2),
-              //  child: const TextButton(
-              //     onPressed: () {},
+              // child: const TextButton(
+              //   onPressed: () {},
               child: const Text(
                 'Português',
                 style: TextStyle(fontSize: 20),
               ),
             ),
-            // ),
             Container(
               alignment: AlignmentDirectional.centerStart,
               height: 50,
@@ -222,7 +283,8 @@ class _ChangeLanguagesScreen extends State<ChangeLanguagesScreen> {
           ),
         ],
         currentIndex: selectedIndex,
-        onTap: navigateTo,),
+        onTap: navigateTo,
+      ),
     );
   }
 }
